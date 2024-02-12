@@ -69,5 +69,14 @@ contract ZapitTradeContract {
         emit OrderFulfilled(orderId, buyer, message);
     }
 
+    function getOrderDetails(uint256 orderId) external view returns (address, address, uint256, bool, bool, address[] memory) {
+        Order storage order = orders[orderId];
+        return (order.seller, order.tokenAddress, order.amount, order.isERC20, order.isFulfilled, order.registeredBuyers);
+    }
+
+    function getBuyerMessage(uint256 orderId, address buyer) external view returns (string memory) {
+        return orders[orderId].buyerMessages[buyer];
+    }
+
     receive() external payable {}
 }
