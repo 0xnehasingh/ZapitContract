@@ -10,7 +10,7 @@ contract ZapitTradeContract {
         uint256 amount;
         bool isERC20;
         bool isFulfilled;
-        mapping(address => string) buyerMessages; // Changed from bytes32 to string
+        mapping(address => string) buyerMessages; 
         address[] registeredBuyers;
     }
 
@@ -18,8 +18,8 @@ contract ZapitTradeContract {
     uint256 private nextOrderId;
 
     event OrderCreated(uint256 orderId, address indexed seller, address indexed tokenAddress, uint256 amount, bool isERC20);
-    event BuyerRegistered(uint256 orderId, address indexed buyer, string message); // Changed from bytes32 to string
-    event OrderFulfilled(uint256 orderId, address indexed buyer, string message); // Changed from bytes32 to string
+    event BuyerRegistered(uint256 orderId, address indexed buyer, string message); 
+    event OrderFulfilled(uint256 orderId, address indexed buyer, string message); 
 
     modifier onlySeller(uint256 orderId) {
         require(msg.sender == orders[orderId].seller, "Caller is not the seller of the order");
@@ -56,7 +56,7 @@ contract ZapitTradeContract {
     function fulfillOrder(uint256 orderId, address buyer, string calldata message) external onlySeller(orderId) {
         Order storage order = orders[orderId];
         require(!order.isFulfilled, "Order is already fulfilled");
-        // Comparing strings in Solidity requires hashing them since strings are not directly comparable
+
         require(keccak256(abi.encodePacked(order.buyerMessages[buyer])) == keccak256(abi.encodePacked(message)), "Message does not match buyer's message");
 
         order.isFulfilled = true;
