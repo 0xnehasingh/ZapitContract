@@ -26,5 +26,23 @@ contract ZapitTradeContract {
         _;
     }
 
+    function createOrder(address tokenAddress, uint256 amount, bool isERC20) external returns (uint256) {
+        require(amount > 0, "Amount must be greater than 0");
+        if(isERC20) {
+            require(IERC20(tokenAddress).transferFrom(msg.sender, address(this), amount), "Transfer failed");
+        }
+        
+        uint256 orderId = nextOrderId++;
+        Order storage order = orders[orderId];
+        order.seller = msg.sender;
+        order.tokenAddress = tokenAddress;
+        order.amount = amount;
+        order.isERC20 = isERC20;
+        order.isFulfilled = false;
+
+        emit OrderCreated(orderId, msg.sender, tokenAddress, amount, isERC20);
+        return orderId;
+    }
+
     receive() external payable {}
 }
