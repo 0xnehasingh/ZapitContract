@@ -44,5 +44,13 @@ contract ZapitTradeContract {
         return orderId;
     }
 
+    function registerAsBuyer(uint256 orderId, string calldata message) external {
+        Order storage order = orders[orderId];
+        require(!order.isFulfilled, "Order is already fulfilled");
+        order.buyerMessages[msg.sender] = message;
+        order.registeredBuyers.push(msg.sender);
+
+        emit BuyerRegistered(orderId, msg.sender, message);
+    }
     receive() external payable {}
 }
