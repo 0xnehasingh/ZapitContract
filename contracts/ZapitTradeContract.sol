@@ -52,5 +52,22 @@ contract ZapitTradeContract {
 
         emit BuyerRegistered(orderId, msg.sender, message);
     }
+
+    function fulfillOrder(uint256 orderId, address buyer, string calldata message) external onlySeller(orderId) {
+        Order storage order = orders[orderId];
+        require(!order.isFulfilled, "Order is already fulfilled");
+        // Comparing strings in Solidity requires hashing them since strings are not directly comparable
+        require(keccak256(abi.encodePacked(order.buyerMessages[buyer])) == keccak256(abi.encodePacked(message)), "Message does not match buyer's message");
+
+        order.isFulfilled = true;
+        if(order.isERC20) {
+            require(IERC20(order.tokenAddress).transfer(buyer, order.amount), "Transfer failed");
+        } else {
+            payable(buyer).transfer(order.amount);
+        }
+
+        emit OrderFulfilled(orderId, buyer, message);
+    }
+
     receive() external payable {}
 }
