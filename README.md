@@ -1,3 +1,29 @@
+## Prerequisites
+
+- Basic understanding of Solidity and smart contracts
+- Familiarity with the ERC-20 token standard
+
+## Setup Instructions
+
+### Hardhat Environment
+
+1. **Installation**
+
+   - Clone the repository: `git clone <repository-url>`
+   - Install dependencies: `npm install`
+
+2. **Testing**
+
+   - Run tests: `npx hardhat test`
+
+3. **Deploying**
+
+   - Deploy the contract to a local Hardhat network: `npx hardhat run scripts/deploy.js --network localhost`
+
+4. **Interacting**
+
+   - Interact with the deployed contract using the provided scripts or custom interactions.
+
 # Zapit Trade Contract
 
 ## Overview
@@ -41,7 +67,7 @@ The Zapit Trade Contract is a Solidity smart contract designed for facilitating 
    - Use getBuyerMessage to retrieve the message provided by a specific buyer for a particular order.
 
 
-# Token Smart Contract
+# Token Contract
 
 ## Overview
 
@@ -54,17 +80,3 @@ The Token Smart Contract is a Solidity implementation of the ERC-20 standard, pr
 
 2. **Permit Functionality**
     - Utilizes the ERC-20 Permit extension, allowing users to approve transfers via a signed message, simplifying the approval process.
-
-## Usage
-
-### Deployment
-
-1. Deploy the contract, providing a unique name, symbol, and initial token supply.
-
-```solidity
-// Example deployment
-Token token = new Token("MyToken", "MTK", 1000000);
-
-
-
- 
