@@ -38,6 +38,33 @@ The Zapit Trade Contract is a Solidity smart contract designed for facilitating 
 
 ### 5. Viewing Buyer Messages
 
-   -
+   - Use getBuyerMessage to retrieve the message provided by a specific buyer for a particular order.
+
+
+# Token Smart Contract
+
+## Overview
+
+The Token Smart Contract is a Solidity implementation of the ERC-20 standard, providing a basic fungible token with the added functionality of permit-based approvals using the ERC-20 Permit extension.
+
+## Features
+
+1. **ERC-20 Standard**
+    - The contract adheres to the ERC-20 standard, providing basic functionalities such as transfer, approve, and transferFrom.
+
+2. **Permit Functionality**
+    - Utilizes the ERC-20 Permit extension, allowing users to approve transfers via a signed message, simplifying the approval process.
+
+## Usage
+
+### Deployment
+
+1. Deploy the contract, providing a unique name, symbol, and initial token supply.
+
+```solidity
+// Example deployment
+Token token = new Token("MyToken", "MTK", 1000000);
+
+
 
  
